@@ -1,0 +1,65 @@
+{
+  "format": 1,
+  "title": {
+    "en": "TutorFlow",
+    "zh": "TutorFlow 智能交互式教学助手"
+  },
+  "description": {
+    "en": "A single-plugin index for TutorFlow. It is not an official DSH market listing.",
+    "zh": "只收录 TutorFlow 的一份索引，不是 DSH 官方市场的正式收录。"
+  },
+  "metadata": {
+    "categories": {
+      "tools": {
+        "title": {
+          "en": "Tools",
+          "zh": "工具"
+        }
+      }
+    },
+    "labels": {},
+    "sortKeys": {}
+  },
+  "plugins": [
+    {
+      "name": "dsh-tutorflow",
+      "title": {
+        "en": "TutorFlow",
+        "zh": "智能交互式教学助手"
+      },
+      "description": {
+        "en": "Teaches one idea and one question at a time, draws local SVG math figures, and keeps study progress on disk.",
+        "zh": "一次只讲一个知识点、只问一个问题，在本地画数学图，并把学习进度写在本机。"
+      },
+      "author": "Z06528",
+      "homepage": "https://github.com/Z06528/dsh-tutorflow",
+      "repository": {
+        "url": "https://github.com/Z06528/dsh-tutorflow"
+      },
+      "metadata": {
+        "category": "tools",
+        "keywords": [
+          "dsh-plugin",
+          "teaching",
+          "tutorflow"
+        ],
+        "labels": [],
+        "sortKeys": {}
+      },
+      "versions": [
+        {
+          "version": "0.1.0",
+          "publishTimestamp": 1795090647,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/Z06528/dsh-tutorflow",
+            "commit": "55e9a0e9df254fdd00b90d1ae5b0026b700d9fb5"
+          },
+          "engines": {
+            "dsh": ">=0.2.0-0 <0.3.0-0"
+          }
+        }
+      ]
+    }
+  ]
+}
