@@ -1,0 +1,65 @@
+{
+  "name": "dsh-tutorflow",
+  "version": "0.1.0",
+  "description": "TutorFlow 智能交互式教学助手：在 DeepSeek Harness 里按一个知识点、一个问题的节奏教学，并在本地画数学图、记住学习进度。",
+  "type": "module",
+  "main": "./index.js",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.browser.js",
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json"
+  },
+  "files": [
+    "index.js",
+    "client.browser.js",
+    "cordis.patch.yml",
+    "lib",
+    "skills",
+    "locale",
+    "market",
+    "test",
+    "README.md",
+    "INSTALL.md"
+  ],
+  "scripts": {
+    "test": "node --test test/*.test.mjs"
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "deepseek-harness-plugin",
+    "tutorflow",
+    "teaching",
+    "education"
+  ],
+  "license": "MIT",
+  "author": "Z06528",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Z06528/dsh-tutorflow.git"
+  },
+  "homepage": "https://github.com/Z06528/dsh-tutorflow#readme",
+  "engines": {
+    "node": ">=22.19.0",
+    "dsh": ">=0.2.0-0 <0.3.0-0"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/dsh-tools": ">=0.2.0-0 <0.3.0-0",
+    "@deepseek-ai/dsh-system-prompt": ">=0.2.0-0 <0.3.0-0",
+    "@deepseek-ai/dsh-skill": ">=0.2.0-0 <0.3.0-0"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/dsh-tools": { "optional": true },
+    "@deepseek-ai/dsh-system-prompt": { "optional": true },
+    "@deepseek-ai/dsh-skill": { "optional": true }
+  },
+  "dsh": {
+    "bundle": { "patch": "./cordis.patch.yml" },
+    "client": {
+      "platform": "web",
+      "inject": ["@deepseek-ai/dsh-client-ui-conversation"]
+    }
+  }
+}
