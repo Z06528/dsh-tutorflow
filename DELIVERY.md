@@ -42,7 +42,7 @@
 
 ## 安装与卸载
 
-npm **没有**发布。在仓库能访问之后：
+npm **没有**发布。公开仓库已经可以安装：
 
 ```sh
 dsh plugin --profile web add github:Z06528/dsh-tutorflow
@@ -78,9 +78,9 @@ DSH 0.2.2-rc.5，Node 24.11.0，pnpm 10.18.0。自定义 profile 名 `tutorflow`
 | 源码扫描 | 无 openai / googleapis / jsDelivr / unpkg / gstatic / cdnjs。绘图不调用 `fetch` |
 | `npm pack` | 打出 `dsh-tutorflow-0.1.0.tgz` |
 | `npm whoami` / `npm publish` | **失败**，`ENEEDAUTH`。没有 npm 登录，不能代发 |
-| GitHub 建公开仓库 | **失败**。`gh repo create` 返回 `CreateRepository` 权限不足；连接器 `POST /user/repos` 返回 403 `Resource not accessible by integration`。本地 git 已有提交 `55e9a0e9df254fdd00b90d1ae5b0026b700d9fb5`，还没有远程 |
-| awesome-dsh-plugin 收录 | **未提交、未合并**。规则要求：只加 `data/plugins/Z06528__dsh-tutorflow.yml`，仓库至少 1 天，且带 topic `dsh-plugin`。仓库还没建出来，这两条都做不到 |
-| 格式 1 索引校验 | 通过。安装 spec 为 `git+https://github.com/Z06528/dsh-tutorflow.git#55e9a0e9df254fdd00b90d1ae5b0026b700d9fb5`。在仓库推上去之前，这个地址装不上 |
+| GitHub 公开仓库 | **已推送**。[Z06528/dsh-tutorflow](https://github.com/Z06528/dsh-tutorflow)，`main` 为 `088323f3c274061a222ff111f54a9ef0ce6db86e`。主题 `dsh-plugin`、`deepseek-harness`、`teaching` 已设置。安装钉住的提交仍是 `55e9a0e9df254fdd00b90d1ae5b0026b700d9fb5`，该提交在远程存在 |
+| awesome-dsh-plugin 收录 | **已提交，未合并**。[PR #16963](https://github.com/awesome-dsh-plugin/awesome-dsh-plugin/pull/16963)，只加了 `data/plugins/Z06528__dsh-tutorflow.yml`。仓库创建于 2026-11-19 12:32 UTC，不满 1 天，年龄检查会先失败，并在约 2026-11-20 12:32 UTC 后自行重跑。不要为了这一项关了重开 |
+| 格式 1 索引校验 | 通过。安装 spec 为 `git+https://github.com/Z06528/dsh-tutorflow.git#55e9a0e9df254fdd00b90d1ae5b0026b700d9fb5`。仓库已经推上去，这个地址现在可以用来安装 |
 
 教学八项里，引擎单测覆盖了 1–6 和 8。第 7 项在真实 profile 上做了「卸掉之后基础插件还在」的 dump，没有把整套 Web 客户端拉起来对一下标题栏按钮（那需要可用的模型配置和完整 web 进程）。隔离宿主里直接 `systemPrompt.assemble()` 会因没有 tool executor 抛 `TOOL_EXECUTOR_UNAVAILABLE`，这是测试夹具缺 executor，不是插件注册失败。
 
@@ -88,24 +88,12 @@ DSH 0.2.2-rc.5，Node 24.11.0，pnpm 10.18.0。自定义 profile 名 `tutorflow`
 
 ## 下一个 agent 要做的事
 
-1. 让用户重连 GitHub，授予以创建仓库的权限（现有 integration 令牌不够）。
-2. 在 `/workspace/dsh-tutorflow`（或用户自己的检出）执行：
+1. 不要重开 [PR #16963](https://github.com/awesome-dsh-plugin/awesome-dsh-plugin/pull/16963)。年龄检查大约在 2026-11-20 12:32 UTC 后自己变绿。若到那时仍红，看检查原文，不要改描述去绕过。
+2. 合并之前，维护者还会对照源码核对那一句描述。六个工具名是 `tutorflow_start`、`tutorflow_answer`、`tutorflow_hint`、`tutorflow_plot`、`tutorflow_mode`、`tutorflow_progress`。
+3. `npm login` 之后再 `npm publish --access public`。发布前再跑一次 `node --test`。名字 `dsh-tutorflow` 在动手时曾是 404，发布前再 `npm view dsh-tutorflow` 确认没被占用。
+4. 不要把「PR 已打开」说成「市场已经收录」。官方 Discover 默认不带任何索引，用户要自己添加索引 URL。`market/index.json` 可以当一份自建源：`https://github.com/Z06528/dsh-tutorflow/raw/main/market/index.json`。
 
-```sh
-git remote add origin git@github.com:Z06528/dsh-tutorflow.git
-git push -u origin main
-gh repo edit Z06528/dsh-tutorflow --add-topic dsh-plugin,deepseek-harness,teaching
-```
-
-如果远程已存在且历史不同，不要强推，先看 `git log`。索引里的 commit 钉的是 `55e9a0e9df254fdd00b90d1ae5b0026b700d9fb5`。若推上去的插件代码不是这个提交，改 `market/index.json` 的 `source.commit`，再用下面的校验，然后提交。
-
-```sh
-node --input-type=module -e "import {readFileSync} from 'node:fs'; import {parseMarketIndex} from '@deepseek-ai/dsh-plugin-market-index'; parseMarketIndex(JSON.parse(readFileSync('market/index.json','utf8')), 'https://github.com/Z06528/dsh-tutorflow/raw/main/market/index.json'); console.log('ok')"
-```
-
-3. 等仓库满 1 天，向 [awesome-dsh-plugin/awesome-dsh-plugin](https://github.com/awesome-dsh-plugin/awesome-dsh-plugin) 提一个只含 `data/plugins/Z06528__dsh-tutorflow.yml` 的 PR。正文用 `market/pr-body.md`。分类只能是他们列出的那些，这里用的是 `tools`，不是自造的 `education`。
-4. `npm login` 之后再 `npm publish --access public`。发布前再跑一次 `node --test`。名字 `dsh-tutorflow` 在动手时曾是 404，发布前再 `npm view dsh-tutorflow` 确认没被占用。
-5. 不要把「索引文件写好了」说成「市场已经收录」。官方 Discover 默认不带任何索引，用户要自己添加索引 URL。`market/index.json` 可以当一份自建源，但仓库和 Pages 都还没挂上。
+已完成、不要再做的事：公开仓库、`dsh-plugin` 主题、收录 PR。远程是 `https://github.com/Z06528/dsh-tutorflow.git`。
 
 ## 不要改回去的坑
 

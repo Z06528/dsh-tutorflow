@@ -1,7 +1,7 @@
-- [ ] I added **one file** at `data/plugins/Z06528__dsh-tutorflow.yml` — that single file is the whole submission.
+- [x] I added **one file** at `data/plugins/Z06528__dsh-tutorflow.yml` — that single file is the whole submission. Pull request: https://github.com/awesome-dsh-plugin/awesome-dsh-plugin/pull/16963
 - [x] The plugin `package.json` declares **`dsh.bundle`** (`dsh.bundle.patch` → `./cordis.patch.yml`) and a web `dsh.client`.
-- [ ] The GitHub repository must be at least **1 day old** before awesome-dsh-plugin CI accepts it. Do not open the pull request on the day the repository is created.
-- [ ] The repository topic **`dsh-plugin`** must be set before the pull request.
+- [ ] The GitHub repository must be at least **1 day old** before awesome-dsh-plugin CI accepts it. Created 2026-11-19 12:32 UTC. Leave PR #16963 open; the age check re-runs by itself after 2026-11-20 12:32 UTC.
+- [x] The repository topic **`dsh-plugin`** is set.
 - [x] `category: tools`
 - [x] The description says what the plugin does, without superlatives.
 
