@@ -1,4 +1,4 @@
-﻿{
+{
   "format": 1,
   "title": {
     "en": "TutorFlow",
@@ -54,7 +54,7 @@
           "source": {
             "type": "git",
             "url": "https://github.com/Z06528/dsh-tutorflow",
-            "commit": "084782973790e970b4fb61c1f9fb7150b79343ee"
+            "commit": "9cbc9824f0561343c8abfd84e501bdff746a9c2f"
           },
           "engines": {
             "dsh": ">=0.2.0-0 <0.3.0-0"
