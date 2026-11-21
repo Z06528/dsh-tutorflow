@@ -61,12 +61,30 @@ $DSH_HOME/dsh-tutorflow/state.json
 
 ## 常见问题
 
+**`dsh plugin add github:...` 报 ERR_PNPM_GIT_RESOLVE_FAILED**
+
+pnpm 需要能调用 `git`，而且默认走 HTTPS。两种原因分别处理：
+
+1. 找不到 git：把 Git 装好，并确认**启动 DSH 的那个环境**的 PATH 里有 `git`。装完要重启 DSH，
+   因为进程启动后不会重新读 PATH。
+2. 本机只能通过 SSH 访问 github.com：让 pnpm 用 SSH 取同样的地址（不改记录下来的 URL）：
+
+   ```sh
+   git config --global url."git@github.com:".insteadOf "https://github.com/"
+   ```
+
+两条都不想动，就直接用本地目录或 ZIP 解压后的目录安装。
+
 **启动报「plugin tree failed to load」**
 先把插件 `remove` 掉，再把报错交给维护者。不要在坏掉的 profile 上继续叠加别的补丁。
 
 **从 Git 安装时提示允许构建脚本**
 这个包提交了现成的 `client.browser.js`，正常不需要 `prepare`。若安装器仍然询问，
 在该 profile 的 `pnpm-workspace.yaml` 里允许这个包后再执行一次 `add`。
+
+**改了插件代码但行为没变**
+宿主插件换代码必须**重启该 profile**。链路安装（本地目录）会把文件立刻更新，
+但运行中的 Host 仍持有上一次加载的模块。
 
 **标题栏没有「教学」按钮**
 确认装的是 web 客户端所需的 profile，并已重启。按钮只在 DSH 的 Web 页面里出现，

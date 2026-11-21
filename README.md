@@ -109,7 +109,7 @@ dsh plugin --profile web remove dsh-tutorflow
 
 ```sh
 cd dsh-tutorflow
-node --test test/tutorflow.test.mjs     # 30 项
+node --test test/tutorflow.test.mjs     # 36 项
 node scripts/simulate.mjs /tmp/trace.json   # 生成跨学科教学轨迹，供模型在环测试
 npm pack
 ```
@@ -138,7 +138,7 @@ npm pack
 - 客户端「教学」面板改为通用本地绘图台：可输入任意表达式画图，保留正态分布浮层。
 - 图标 `icon.svg`、中英文 locale、`meta.detail` 之外的插件市场元数据。
 - 状态文件 v1 → v2 自动迁移，旧掌握度与错题不丢。
-- 测试从 8 项扩到 30 项，覆盖跨学科无课程包场景、错误分型、证据阈值、路线校验、通用图型、schema 子集。
+- 测试从 8 项扩到 36 项，覆盖跨学科无课程包场景、错误分型、证据阈值、路线校验、通用图型、schema 子集。
 
 **修复**
 

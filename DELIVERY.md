@@ -24,7 +24,7 @@
 | 图形 | 8 种 → 14 种（新增柱状、多曲线、表格、结构树、时间线、代码追踪） |
 | 客户端 | 正态分布浮层 → 通用本地绘图台（可输入任意表达式） |
 | 状态 | v1 → v2 自动迁移，旧掌握度与错题不丢 |
-| 测试 | 8 项 → 35 项 |
+| 测试 | 8 项 → 36 项 |
 
 ## 文件
 
@@ -47,27 +47,36 @@
 | `docs/ARCHITECTURE.md` | 审查结论与通用教学架构 |
 | `docs/TEST-REPORT.md` | 跨学科测试报告、失败案例与修复 |
 | `scripts/simulate.mjs` | 生成跨学科教学轨迹，供模型在环测试 |
-| `test/tutorflow.test.mjs` | 35 项 |
+| `test/tutorflow.test.mjs` | 36 项 |
 | `icon.svg` / `locale/` | 插件市场展示元数据 |
 
 ## 验证状态
 
-已验证：
+已验证（在本机 `desktop` profile 上真的装过并调用过）：
 
-- `node --test test/tutorflow.test.mjs` → **35/35 通过**。
-- 七个工具的参数与输出 schema 在本地按 DSH 0.2.x 的受支持子集逐节点校验通过
-  （`type` 单值 / `oneOf` ≥2 / `properties` / `required` ⊆ `properties` / `additionalProperties` 布尔 / `items` / 标量 `enum`、`const` + 注解）。
-- `npm pack --dry-run` → 29 个文件、94.4 kB，`icon.svg`、`docs/`、`locale/`、`lib/`、`skills/` 都在包里。
+- `plugin_manager install_bundle` 指向本地目录 → `application: applied`，版本 0.2.0。
+  profile 的 `dependencies` 与 `dsh.profile.bundles` 都出现 `dsh-tutorflow`。
+- 装完后 7 个 `tutorflow_*` 工具与系统提示段**当场出现在运行中的会话里**，
+  `tutorflow_start` 返回了正确的第一步指令，`tutorflow_answer` 与 `tutorflow_progress` 也能用。
+- 状态文件写到了 `$DSH_HOME/dsh-tutorflow/state.json`，内容是 v2（含 4 步路线、`focus.lastAsk`、
+  `history`），系统提示段随之更新（阶段从 `idle` 变 `diagnose`）。
+- `node --test test/tutorflow.test.mjs` → **36/36 通过**。
+- 七个工具的参数与输出 schema 在本地按 DSH 0.2.x 的受支持子集逐节点校验通过。
+- `npm pack --dry-run` → 29 个文件、94 kB，`icon.svg`、`docs/`、`locale/`、`lib/`、`skills/` 都在包里。
 - 全部 `.js` / `.mjs` 通过 `node --check`；全部 `.json` 通过解析。
-- 跨学科模型在环测试三轮，详见 `docs/TEST-REPORT.md`。
+- GitHub 已推送，`main` 上 `package.json` 的 `version` 为 `0.2.0`。
 
-未验证：
+未验证 / 需要重启：
 
-- **没有在真实 profile 里装过这一次的构建**。0.1.0 曾在真实 DSH 0.2.2-rc.5 上装过并通过
-  （fiber ACTIVE、六个工具注册、schema 全过），但 0.2.0 只做了本地 mock ctx 与 schema 子集校验。
-  第一次真装时请按 `INSTALL.md` 的「怎么确认装上了」逐条对。
+- **宿主插件换代码必须重启 profile 才生效**。这次把修复同步进已安装副本后，运行中的 Host
+  仍持有旧模块（工具返回的还是旧文案）。所以「最后一次修复后的行为」只在单测里验过，
+  没有在运行中的 profile 上复验。重启后请按 `INSTALL.md` 的清单再走一遍。
+- **`github:` 安装方式没有在本机成功过**。pnpm 解析 git 依赖时报
+  `ERR_PNPM_GIT_RESOLVE_FAILED: git ls-remote failed: 'git' 不是内部或外部命令`——
+  这台机器上 DSH 进程的 PATH 里没有 git（本次是临时装的，进程启动时还不存在）；
+  另外本机到 github.com 走的是 SSH，而 pnpm 默认用 HTTPS。两种解法见 `INSTALL.md`。
 - **客户端「教学」按钮没有在浏览器里目视确认过**。`client.browser.js` 只用 `node --check` 验过语法，
-  插槽名与 0.1.0 相同（`conversation.session.header.actions`），改的是面板内容。
+  插槽名与 0.1.0 相同，改的是面板内容。
 - **没有发布到 npm**。`npm whoami` 无登录态。
 
 ## 安装与卸载

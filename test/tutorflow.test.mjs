@@ -215,6 +215,28 @@ test('陌生知识点的完整闭环：诊断 → 讲解 → 判错 → 换讲�
   assert.ok(state.plan.cursor >= 1)
 })
 
+test('诊断阶段学生给出的说法会被当成假设，而不是被无视', () => {
+  const started = dispatch(emptyState(), { type: 'start', question: '为什么飞机能够飞起来？' })
+  const placed = dispatch(started.state, {
+    type: 'answer',
+    text: '上面空气走得更快，所以压力更小，飞机就被托起来了',
+    verdict: 'incorrect',
+    errorType: 'concept',
+    evidence: '把流速当成原因',
+  })
+  assert.equal(placed.state.level, 'unknown')
+  assert.match(placed.result.say, /假设|不要.*否定|不要.*纠正/)
+  assert.notEqual(placed.result.ask, started.result.ask)
+  assert.doesNotMatch(placed.result.ask, /印象/)
+  assert.equal(placed.result.advance, false)
+  assert.ok(placed.result.priorBelief)
+  assert.match(placed.result.priorBelief, /空气/)
+  // 状态说明（没学过）仍然走零基础分支
+  const beginner = dispatch(started.state, { type: 'answer', text: '没学过，只知道机翼上面是弯的' })
+  assert.equal(beginner.state.level, 'beginner')
+  assert.equal(beginner.result.priorBelief, null)
+})
+
 test('学生说不知道时，不会再追问他懂什么', () => {
   const started = dispatch(emptyState(), { type: 'start', question: '为什么天空是蓝色的？' })
   assert.equal(started.state.awaiting, 'placement')
