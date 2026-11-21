@@ -49,8 +49,20 @@
       },
       "versions": [
         {
+          "version": "0.2.1",
+          "publishTimestamp": 1795232924,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/Z06528/dsh-tutorflow",
+            "commit": "864188f236c9ca6c8705882281728d3c6b0764e6"
+          },
+          "engines": {
+            "dsh": ">=0.2.0-0 <0.3.0-0"
+          }
+        },
+        {
           "version": "0.2.0",
-          "publishTimestamp": 1795230730,
+          "publishTimestamp": 1795232729,
           "source": {
             "type": "git",
             "url": "https://github.com/Z06528/dsh-tutorflow",
