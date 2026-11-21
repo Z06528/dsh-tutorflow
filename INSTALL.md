@@ -8,23 +8,23 @@
 
 ## 安装
 
-npm 已发布时：
+已发布到 npm（latest 为 **0.2.1**）：
 
 ```sh
 dsh plugin --profile web add dsh-tutorflow
 ```
 
-只有源码时：
+包页面：<https://www.npmjs.com/package/dsh-tutorflow>。
+同一个包名下还有一个 `0.0.0-stage`，那是发布流程用的占位包，**不要拿它当安装版本**。
 
-```sh
-dsh plugin --profile web add github:Z06528/dsh-tutorflow
-```
-
-本地目录：
+想装本地改动、或只有源码时，用目录：
 
 ```sh
 dsh plugin --profile web add ./dsh-tutorflow
 ```
+
+`github:Z06528/dsh-tutorflow` 这种写法需要本机能调用 `git` 并访问 github.com；
+满足就用，不满足用上面的 npm 或本地目录即可。
 
 桌面版：在应用里的**插件**页面点「添加插件」，选本地目录，不要对名为 `desktop` 的 profile 用命令行安装。
 
@@ -60,20 +60,6 @@ $DSH_HOME/dsh-tutorflow/state.json
 也可以在卸载前对老师说「清除学习记录」。
 
 ## 常见问题
-
-**`dsh plugin add github:...` 报 ERR_PNPM_GIT_RESOLVE_FAILED**
-
-pnpm 需要能调用 `git`，而且默认走 HTTPS。两种原因分别处理：
-
-1. 找不到 git：把 Git 装好，并确认**启动 DSH 的那个环境**的 PATH 里有 `git`。装完要重启 DSH，
-   因为进程启动后不会重新读 PATH。
-2. 本机只能通过 SSH 访问 github.com：让 pnpm 用 SSH 取同样的地址（不改记录下来的 URL）：
-
-   ```sh
-   git config --global url."git@github.com:".insteadOf "https://github.com/"
-   ```
-
-两条都不想动，就直接用本地目录或 ZIP 解压后的目录安装。
 
 **启动报「plugin tree failed to load」**
 先把插件 `remove` 掉，再把报错交给维护者。不要在坏掉的 profile 上继续叠加别的补丁。

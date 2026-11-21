@@ -1,6 +1,6 @@
 {
   "name": "dsh-tutorflow",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "TutorFlow 通用教学增强：在 DeepSeek Harness 里给任何模型加一套会教书的方法——先判断要不要上课，再一步一步讲、一次只问一个问题、按回答调整，用本地图形辅助，并把学习进度与薄弱点记在本机。不限学科。",
   "type": "module",
   "main": "./index.js",

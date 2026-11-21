@@ -49,16 +49,22 @@ TutorFlow 把这几件事变成机械约束：
 
 ## 安装
 
+已发布到 npm（latest 为 **0.2.1**）：
+
 ```sh
 dsh plugin --profile web add dsh-tutorflow
 ```
 
-包还没有发布到 npm 时，用本地目录或 Git 地址：
+包页面：<https://www.npmjs.com/package/dsh-tutorflow>。
+同一个包名下还有一个 `0.0.0-stage`，那是发布流程用的占位包，**不要拿它当安装版本**。
+
+想装本地改动或只有源码时，用目录：
 
 ```sh
 dsh plugin --profile web add /path/to/dsh-tutorflow
-dsh plugin --profile web add github:Z06528/dsh-tutorflow
 ```
+
+从 GitHub 直接装需要本机能调用 `git` 并访问 github.com；不满足就用上面的 npm 或本地目录。
 
 桌面版不要对 `desktop` 这个 profile 名使用命令行安装，改在应用里的**插件**页面安装。
 装完后重启这个 profile。详细步骤见 [INSTALL.md](INSTALL.md)。
@@ -121,6 +127,11 @@ npm pack
 
 ## 更新日志
 
+### 0.2.1 — 与 npm 上的版本号对齐
+
+内容与 0.2.0 完全相同：同一份源码、同一个提交、`fileCount` 与 `unpackedSize` 都一样，
+只是把 npm 上的 latest 对齐到 0.2.1。安装用 `dsh plugin --profile web add dsh-tutorflow`。
+
 ### 0.2.0 — 从「概率论教学插件」改为「通用教学增强」
 
 这一版把教学能力与课程内容彻底拆开。原来换成任何非概率论知识点，就只能退化成普通问答；现在不会了。
@@ -155,7 +166,7 @@ npm pack
 - 对错判定依赖模型给出 `verdict`；模型不给时只会退化为继续追问，教学节奏会变慢。
 - 间隔复习只在 `tutorflow_progress({action:'review'})` 时触发，没有后台定时器。
 - 中文优先。英文 locale 只覆盖插件展示元数据，教学话术走模型自身语言。
-- 没有发布到 npm。`market/index.json` 是自建索引，需要自己添加索引源，不等于已被公共市场收录。
+- `market/index.json` 是自建索引，需要自己添加索引源；正式安装来源是 npm 上的包，不是这个索引。
 
 ### 0.1.0 — 初始版本
 
