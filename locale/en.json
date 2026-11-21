@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "TutorFlow",
-    "description": "A DeepSeek Harness tutor that teaches one idea and one question at a time, with local math figures and saved progress."
+    "title": "TutorFlow teaching enhancer",
+    "description": "Gives the model in DSH a teaching method: first decide whether you want a quick answer or to understand something, then explain one step at a time, ask one question at a time, diagnose why a wrong answer is wrong, and draw local figures when they help. Works for any subject, including topics with no preset course. Progress and weak spots stay on this machine."
   }
 }

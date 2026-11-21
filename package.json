@@ -1,14 +1,15 @@
 {
   "name": "dsh-tutorflow",
-  "version": "0.1.0",
-  "description": "TutorFlow 智能交互式教学助手：在 DeepSeek Harness 里按一个知识点、一个问题的节奏教学，并在本地画数学图、记住学习进度。",
+  "version": "0.2.0",
+  "description": "TutorFlow 通用教学增强：在 DeepSeek Harness 里给任何模型加一套会教书的方法——先判断要不要上课，再一步一步讲、一次只问一个问题、按回答调整，用本地图形辅助，并把学习进度与薄弱点记在本机。不限学科。",
   "type": "module",
   "main": "./index.js",
   "exports": {
     ".": "./index.js",
     "./client": "./client.browser.js",
     "./package.json": "./package.json",
-    "./locale/*.json": "./locale/*.json"
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
   },
   "files": [
     "index.js",
@@ -18,12 +19,16 @@
     "skills",
     "locale",
     "market",
+    "docs",
+    "scripts",
+    "icon.svg",
     "test",
     "README.md",
     "INSTALL.md"
   ],
   "scripts": {
-    "test": "node --test test/*.test.mjs"
+    "test": "node --test test/*.test.mjs",
+    "sim": "node scripts/simulate.mjs"
   },
   "keywords": [
     "dsh",
@@ -32,7 +37,9 @@
     "deepseek-harness-plugin",
     "tutorflow",
     "teaching",
-    "education"
+    "tutoring",
+    "education",
+    "pedagogy"
   ],
   "license": "MIT",
   "author": "Z06528",
